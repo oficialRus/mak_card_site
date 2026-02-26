@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: #050818;
+    color: #e8e0d0;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    background: rgba(245, 200, 66, 0.3);
+    color: #fffbf0;
+  }
+}
+
+@layer components {
+  .font-serif-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .btn-gold {
+    @apply relative px-8 py-3 font-medium tracking-wider uppercase text-sm overflow-hidden;
+    background: linear-gradient(135deg, #f5c842 0%, #e8a937 50%, #c47c1a 100%);
+    color: #050818;
+    border: 1px solid rgba(245, 200, 66, 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .btn-gold:hover {
+    box-shadow: 0 0 30px rgba(245, 200, 66, 0.5), 0 0 60px rgba(245, 200, 66, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .btn-gold::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-gold:hover::after {
+    left: 100%;
+  }
+
+  .btn-outline-gold {
+    @apply relative px-8 py-3 font-medium tracking-wider uppercase text-sm;
+    background: transparent;
+    color: #f5c842;
+    border: 1px solid rgba(245, 200, 66, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-gold:hover {
+    background: rgba(245, 200, 66, 0.08);
+    border-color: rgba(245, 200, 66, 0.8);
+    box-shadow: 0 0 20px rgba(245, 200, 66, 0.2);
+    color: #fffbf0;
+  }
+
+  .glass-card {
+    background: rgba(8, 12, 42, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(245, 200, 66, 0.15);
+  }
+
+  .glass-card-light {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(245, 200, 66, 0.1);
+  }
+
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #f5c842 0%, #e8a937 50%, #fde68a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gold-subtle {
+    color: #c9a84c;
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #f5c842, transparent);
+    margin: 0 auto;
+  }
+
+  .star-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  .glow-border {
+    position: relative;
+  }
+  
+  .glow-border::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(245,200,66,0.4), transparent, rgba(245,200,66,0.4));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  
+  .product-card:hover .product-glow {
+    opacity: 1;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+  }
+  
+  .accordion-content.open {
+    max-height: 500px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(8, 12, 42, 0.5);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(245, 200, 66, 0.4);
+    border-radius: 2px;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(1deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.3); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes cosmic-flow {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.cosmic-orb {
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: cosmic-flow 15s ease-in-out infinite;
+}

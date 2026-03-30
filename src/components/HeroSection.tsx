@@ -79,9 +79,19 @@ const HeroSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="absolute top-8 left-0 right-0 flex justify-between items-center px-8"
         >
-          <div className="font-serif-display text-xl tracking-widest text-gold-glow" style={{ color: '#f5c842' }}>
-            GARMONIA-MAK
-          </div>
+          <a href="#hero" className="flex items-center gap-3">
+            <img
+              src="/garmonia-logo.png"
+              alt="Garmonia-MAK логотип"
+              className="h-12 w-auto object-contain drop-shadow-[0_0_20px_rgba(245,200,66,0.45)]"
+            />
+            <span
+              className="font-serif-display text-xl tracking-widest text-gold-glow hidden sm:inline"
+              style={{ color: '#f5c842' }}
+            >
+              GARMONIA-MAK
+            </span>
+          </a>
           <div className="hidden md:flex gap-8 text-sm tracking-wider text-white/60">
             <a href="#products" className="hover:text-gold-glow transition-colors">Карты</a>
             <a href="#philosophy" className="hover:text-gold-glow transition-colors">Философия</a>

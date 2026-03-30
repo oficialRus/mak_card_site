@@ -1,27 +1,17 @@
-import HeroSection from './components/HeroSection';
-import ProductsSection from './components/ProductsSection';
-import PhilosophySection from './components/PhilosophySection';
-import AISection from './components/AISection';
-import BenefitsSection from './components/BenefitsSection';
-import ReviewsSection from './components/ReviewsSection';
-import AboutSection from './components/AboutSection';
-import FAQSection from './components/FAQSection';
-import FooterSection from './components/FooterSection';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout';
+import HomePage from './pages/HomePage';
+import TechniquesPage from './pages/TechniquesPage';
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen" style={{ background: '#050818' }}>
-      <HeroSection />
-      <ProductsSection />
-      <PhilosophySection />
-      <AISection />
-      <BenefitsSection />
-      <ReviewsSection />
-      <AboutSection />
-      <FAQSection />
-      <FooterSection />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/techniques" element={<TechniquesPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

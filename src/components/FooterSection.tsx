@@ -23,8 +23,18 @@ const FooterSection: React.FC = () => {
             transition={{ duration: 0.7 }}
             className="max-w-xs"
           >
-            <div className="font-serif-display text-2xl tracking-widest mb-4" style={{ color: '#f5c842' }}>
-              GARMONIA-MAK
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src="/garmonia-logo.png"
+                alt="Garmonia-MAK логотип"
+                className="h-10 w-auto object-contain drop-shadow-[0_0_18px_rgba(245,200,66,0.4)]"
+              />
+              <span
+                className="font-serif-display text-2xl tracking-widest"
+                style={{ color: '#f5c842' }}
+              >
+                GARMONIA-MAK
+              </span>
             </div>
             <p className="text-xs leading-relaxed" style={{ color: 'rgba(232,224,208,0.5)' }}>
               Метафорические ассоциативные карты для глубинной трансформации.

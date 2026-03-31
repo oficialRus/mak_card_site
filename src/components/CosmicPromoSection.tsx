@@ -82,34 +82,49 @@ const SUPPORT_BODY =
 
 type ProductImagePlaceholderProps = {
   ariaLabel?: string;
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
 const ProductImagePlaceholder: React.FC<ProductImagePlaceholderProps> = ({
   ariaLabel = 'Заглушка: фото скоро появится',
+  imageSrc,
+  imageAlt = 'Фотография колоды',
 }) => (
   <div className="relative rounded-2xl p-[1px]" style={imageFrameStyle}>
-    <div
-      className="relative flex aspect-[16/10] min-h-[200px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-gradient-to-br from-[#353b52] via-[#252a3d] to-[#161a28]"
-      role="img"
-      aria-label={ariaLabel}
-    >
+    {imageSrc ? (
+      <div className="relative aspect-[16/10] min-h-[200px] w-full overflow-hidden rounded-2xl">
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          className="relative block h-full w-full object-cover"
+          draggable={false}
+        />
+      </div>
+    ) : (
       <div
-        className="pointer-events-none absolute inset-0 rounded-2xl opacity-50"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(-45deg, transparent, transparent 6px, rgba(255,255,255,0.04) 6px, rgba(255,255,255,0.04) 12px)',
-        }}
-        aria-hidden
-      />
-      <ImageIcon
-        className="relative z-[1] h-12 w-12 text-[rgba(232,220,192,0.22)]"
-        strokeWidth={1.15}
-        aria-hidden
-      />
-      <span className="relative z-[1] text-center text-xs font-medium uppercase tracking-[0.2em] text-[rgba(232,220,192,0.32)]">
-        Фото скоро
-      </span>
-    </div>
+        className="relative flex aspect-[16/10] min-h-[200px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-gradient-to-br from-[#353b52] via-[#252a3d] to-[#161a28]"
+        role="img"
+        aria-label={ariaLabel}
+      >
+        <div
+          className="pointer-events-none absolute inset-0 rounded-2xl opacity-50"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(-45deg, transparent, transparent 6px, rgba(255,255,255,0.04) 6px, rgba(255,255,255,0.04) 12px)',
+          }}
+          aria-hidden
+        />
+        <ImageIcon
+          className="relative z-[1] h-12 w-12 text-[rgba(232,220,192,0.22)]"
+          strokeWidth={1.15}
+          aria-hidden
+        />
+        <span className="relative z-[1] text-center text-xs font-medium uppercase tracking-[0.2em] text-[rgba(232,220,192,0.32)]">
+          Фото скоро
+        </span>
+      </div>
+    )}
   </div>
 );
 
@@ -117,12 +132,22 @@ const MattePlaceholderGridRow: React.FC<{
   reveal: RevealVariants;
   title?: string;
   body?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  hideImage?: boolean;
 }> = ({
   reveal,
   title = MATTE_CARDBOARD_TITLE,
   body = MATTE_CARDBOARD_BODY,
+  imageSrc,
+  imageAlt,
+  hideImage = false,
 }) => (
-  <div className="mt-14 grid grid-cols-1 items-stretch gap-10 lg:mt-20 lg:grid-cols-2 lg:gap-14 xl:gap-20">
+  <div
+    className={`mt-14 grid grid-cols-1 items-stretch gap-10 lg:mt-20 lg:gap-14 xl:gap-20 ${
+      hideImage ? 'lg:grid-cols-1' : 'lg:grid-cols-2'
+    }`}
+  >
     <div className="order-1 flex min-h-0 flex-col justify-center text-left lg:h-full">
       <TechniquesCalloutCard
         variants={reveal}
@@ -133,15 +158,17 @@ const MattePlaceholderGridRow: React.FC<{
       />
     </div>
 
-    <motion.div
-      className="order-2 flex min-h-0 flex-col lg:h-full"
-      initial={{ opacity: 0, scale: 0.97 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.65, delay: 0.05 }}
-    >
-      <ProductImagePlaceholder />
-    </motion.div>
+    {!hideImage && (
+      <motion.div
+        className="order-2 flex min-h-0 flex-col lg:h-full"
+        initial={{ opacity: 0, scale: 0.97 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.65, delay: 0.05 }}
+      >
+        <ProductImagePlaceholder imageSrc={imageSrc} imageAlt={imageAlt} />
+      </motion.div>
+    )}
   </div>
 );
 
@@ -150,24 +177,30 @@ const PlaceholderCoachGridRow: React.FC<{
   placeholderAriaLabel?: string;
   title?: string;
   body?: string;
+  textBeforeImage?: boolean;
+  imageSrc?: string;
+  imageAlt?: string;
+  hideImage?: boolean;
 }> = ({
   reveal,
   placeholderAriaLabel = 'Заглушка: фото колоды «Рассвет» скоро появится',
   title = TECHNIQUE_COACH_TITLE,
   body = TECHNIQUE_COACH_BODY,
+  textBeforeImage = false,
+  imageSrc,
+  imageAlt,
+  hideImage = false,
 }) => (
-  <div className="mt-14 grid grid-cols-1 items-stretch gap-10 lg:mt-20 lg:grid-cols-2 lg:gap-14 xl:gap-20">
-    <motion.div
-      className="order-1 flex min-h-0 flex-col lg:h-full"
-      initial={{ opacity: 0, scale: 0.97 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.65 }}
+  <div
+    className={`mt-14 grid grid-cols-1 items-stretch gap-10 lg:mt-20 lg:gap-14 xl:gap-20 ${
+      hideImage ? 'lg:grid-cols-1' : 'lg:grid-cols-2'
+    }`}
+  >
+    <div
+      className={`flex min-h-0 flex-col justify-center text-left lg:h-full ${
+        textBeforeImage ? 'order-1' : 'order-2'
+      }`}
     >
-      <ProductImagePlaceholder ariaLabel={placeholderAriaLabel} />
-    </motion.div>
-
-    <div className="order-2 flex min-h-0 flex-col justify-center text-left lg:h-full">
       <TechniquesCalloutCard
         variants={reveal}
         transitionDelay={0.1}
@@ -176,6 +209,18 @@ const PlaceholderCoachGridRow: React.FC<{
         body={body}
       />
     </div>
+
+    {!hideImage && (
+      <motion.div
+        className={`flex min-h-0 flex-col lg:h-full ${textBeforeImage ? 'order-2' : 'order-1'}`}
+        initial={{ opacity: 0, scale: 0.97 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.65 }}
+      >
+        <ProductImagePlaceholder ariaLabel={placeholderAriaLabel} imageSrc={imageSrc} imageAlt={imageAlt} />
+      </motion.div>
+    )}
   </div>
 );
 
@@ -213,24 +258,7 @@ const CosmicPromoSection: React.FC = () => {
 
       <div className="mak-container relative z-10 px-5">
         <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-20">
-          <motion.div
-            className="order-1 flex min-h-0 flex-col lg:order-1 lg:h-full"
-            initial={{ opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
-          >
-            <div className="relative rounded-2xl p-[1px]" style={imageFrameStyle}>
-              <img
-                src="/garmonia-dnya-showcase.png"
-                alt="Колода «Гармония дня» — метафорические ассоциативные AR-карты"
-                className="relative block w-full rounded-2xl object-cover"
-                draggable={false}
-              />
-            </div>
-          </motion.div>
-
-          <div className="order-2 flex min-h-0 flex-col gap-8 text-left lg:order-2 lg:h-full lg:gap-8">
+          <div className="order-1 flex min-h-0 flex-col gap-8 text-left lg:order-1 lg:h-full lg:gap-8">
             <motion.p
               variants={reveal}
               initial="hidden"
@@ -247,35 +275,10 @@ const CosmicPromoSection: React.FC = () => {
                 ты видишь, слышишь и чувствуешь»
               </span>
             </motion.p>
-
-            <TechniquesCalloutCard variants={reveal} className="lg:mt-auto" />
-          </div>
-        </div>
-
-        <div className="mt-10 grid grid-cols-1 items-stretch gap-10 lg:mt-14 lg:grid-cols-2 lg:gap-14 xl:gap-20">
-          <div className="order-2 flex min-h-0 flex-col gap-8 text-left lg:order-1 lg:h-full lg:gap-8">
-            <motion.p
-              variants={reveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.65 }}
-              className="shrink-0 text-lg font-semibold leading-snug text-[#F2F0EB] md:text-xl lg:text-2xl lg:leading-tight"
-              style={{ textShadow: '0 1px 24px rgba(0,0,0,0.35)' }}
-            >
-              50 уникальных оживающих карт
-              <br />
-              с уникальным ассоциативным видео-контентом и озвучкой.
-              <span className="text-gold-gradient mt-5 block text-base font-semibold tracking-[0.18em] md:text-lg lg:text-xl">
-                ты видишь, слышишь и чувствуешь»
-              </span>
-            </motion.p>
-
-            <TechniquesCalloutCard variants={reveal} className="lg:mt-auto" />
           </div>
 
           <motion.div
-            className="order-1 flex min-h-0 flex-col lg:order-2 lg:h-full"
+            className="order-2 flex min-h-0 flex-col lg:order-2 lg:h-full"
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -290,15 +293,28 @@ const CosmicPromoSection: React.FC = () => {
               />
             </div>
           </motion.div>
+
+          <div className="order-3 lg:order-3 lg:col-span-2">
+            <TechniquesCalloutCard variants={reveal} />
+          </div>
         </div>
 
-        <PlaceholderCoachGridRow reveal={reveal} />
+        <PlaceholderCoachGridRow
+          reveal={reveal}
+          textBeforeImage
+          imageSrc="/rassvet-showcase-v2.png"
+          imageAlt="Колода «Рассвет» — фото набора из трёх карт"
+        />
 
-        <MattePlaceholderGridRow reveal={reveal} />
+        <MattePlaceholderGridRow
+          reveal={reveal}
+          imageSrc="/garmonia-photo-showcase.png"
+          imageAlt="Колода «Гармония дня» — фото набора из трёх карт"
+        />
 
-        <PlaceholderCoachGridRow reveal={reveal} title={LOVE_PACK_TITLE} body={LOVE_PACK_BODY} />
+        <PlaceholderCoachGridRow reveal={reveal} title={LOVE_PACK_TITLE} body={LOVE_PACK_BODY} hideImage />
 
-        <MattePlaceholderGridRow reveal={reveal} title={SUPPORT_TITLE} body={SUPPORT_BODY} />
+        <MattePlaceholderGridRow reveal={reveal} title={SUPPORT_TITLE} body={SUPPORT_BODY} hideImage />
       </div>
     </section>
   );

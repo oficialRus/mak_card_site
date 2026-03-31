@@ -7,18 +7,22 @@ import { ONLINE_APP_URL } from '../constants/site';
 
 const decks = [
   {
-    title: 'Путеводная звезда',
+    title: 'Я выбираю быть...',
     subtitle: '100 уникальных красочных изображений на разные темы',
     description: 'Универсальная и разносторонняя. Подойдет под большинство техник.',
     detailsHref: 'https://elicart.ru/putevodnaya-zvezda',
     onlineHref: ONLINE_APP_URL,
+    imageSrc: '/putevodnaya-zvezda-deck-20260331.png',
+    imageAlt: 'Колода «Путеводная звезда»',
   },
   {
-    title: 'Рассвет',
+    title: 'Гармония дня..',
     subtitle: '100 красочных изображений с упором на поиски ресурсов',
     description: 'Универсальная и может использоваться со многими техниками.',
     detailsHref: 'https://elicart.ru/rassvet',
     onlineHref: ONLINE_APP_URL,
+    imageSrc: '/rassvet-deck-v2.png',
+    imageAlt: 'Колода «Рассвет»',
   },
 ];
 
@@ -175,11 +179,19 @@ export default function HomePage() {
                   whileHover={{ y: -4, rotate: -0.25 }}
                 >
                   <div
-                    className="mak-deck-placeholder"
+                    className={`mak-deck-placeholder ${idx === 0 || idx === 1 ? 'mak-deck-placeholder--blue' : ''}`}
                     role="img"
                     aria-label={`Заглушка фото колоды «${deck.title}»`}
                   >
-                    <span className="mak-deck-placeholder-label">Фото скоро</span>
+                    {deck.imageSrc ? (
+                      <img
+                        src={deck.imageSrc}
+                        alt={deck.imageAlt ?? `Колода «${deck.title}»`}
+                        className={idx === 1 ? 'mak-deck-image--blue-bg' : undefined}
+                      />
+                    ) : (
+                      <span className="mak-deck-placeholder-label">Фото скоро</span>
+                    )}
                   </div>
                   <div className="mak-deck-content">
                     <h3>{deck.title}</h3>

@@ -166,20 +166,80 @@
 @keyframes mak-hero-float-front {
   0%,
   100% {
-    transform: translate(52px, 6px) rotate(8deg) scale(1.02) translateY(0);
+    transform: translate(0, 0) rotate(0deg) scale(1.01) translateY(0);
   }
   50% {
-    transform: translate(52px, 6px) rotate(8deg) scale(1.02) translateY(-12px);
+    transform: translate(0, 0) rotate(0deg) scale(1.01) translateY(-10px);
   }
 }
 
 @keyframes mak-hero-float-front-sm {
   0%,
   100% {
-    transform: translate(74px, 6px) rotate(8deg) scale(1.02) translateY(0);
+    transform: translate(0, 0) rotate(0deg) scale(1) translateY(0);
   }
   50% {
-    transform: translate(74px, 6px) rotate(8deg) scale(1.02) translateY(-12px);
+    transform: translate(0, 0) rotate(0deg) scale(1) translateY(-8px);
+  }
+}
+
+@keyframes mak-hero-tilt-back1 {
+  0%,
+  100% {
+    transform: translate(-58px, 22px) rotate(-20deg) scale(0.97);
+  }
+  50% {
+    transform: translate(-62px, 16px) rotate(-31deg) scale(0.97);
+  }
+}
+
+@keyframes mak-hero-tilt-back2 {
+  0%,
+  100% {
+    transform: translate(58px, 22px) rotate(20deg) scale(0.97);
+  }
+  50% {
+    transform: translate(62px, 16px) rotate(31deg) scale(0.97);
+  }
+}
+
+@keyframes mak-hero-tilt-back1-sm {
+  0%,
+  100% {
+    transform: translate(-30px, 19px) rotate(-17deg) scale(0.95);
+  }
+  50% {
+    transform: translate(-33px, 15px) rotate(-26deg) scale(0.95);
+  }
+}
+
+@keyframes mak-hero-tilt-back2-sm {
+  0%,
+  100% {
+    transform: translate(30px, 19px) rotate(17deg) scale(0.95);
+  }
+  50% {
+    transform: translate(33px, 15px) rotate(26deg) scale(0.95);
+  }
+}
+
+@keyframes mak-hero-tilt-back1-xs {
+  0%,
+  100% {
+    transform: translate(-22px, 16px) rotate(-15deg) scale(0.94);
+  }
+  50% {
+    transform: translate(-24px, 13px) rotate(-22deg) scale(0.94);
+  }
+}
+
+@keyframes mak-hero-tilt-back2-xs {
+  0%,
+  100% {
+    transform: translate(22px, 16px) rotate(15deg) scale(0.94);
+  }
+  50% {
+    transform: translate(24px, 13px) rotate(22deg) scale(0.94);
   }
 }
 
@@ -351,7 +411,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .mak-hero-card p {
@@ -426,21 +486,25 @@
 
 .mak-hero-card-layer--back1 {
   /* Влево, чтобы «ванна» была лучше видна из-под передней карты */
-  transform: translate(-72px, 30px) rotate(-15deg) scale(0.98);
+  transform: translate(-58px, 22px) rotate(-20deg) scale(0.97);
+  transform-origin: 50% 90%;
   opacity: 0.9;
   z-index: 1;
+  animation: mak-hero-tilt-back1 7.5s ease-in-out infinite;
 }
 
 .mak-hero-card-layer--back2 {
   /* Третий слой: сдвигаем вправо относительно front */
-  transform: translate(234px, -4px) rotate(6deg) scale(0.985);
+  transform: translate(58px, 22px) rotate(20deg) scale(0.97);
+  transform-origin: 50% 90%;
   opacity: 0.92;
   z-index: 2;
+  animation: mak-hero-tilt-back2 8.2s ease-in-out infinite;
 }
 
 .mak-hero-card-layer--front {
-  /* Сдвиг вправо — открывает заднюю карту (ванна) */
-  transform: translate(52px, 6px) rotate(8deg) scale(1.02);
+  /* Центральная карта без наклона */
+  transform: translate(0, 0) rotate(0deg) scale(1.01);
   opacity: 0.98;
   z-index: 3;
   animation: mak-hero-float-front 9s ease-in-out infinite;
@@ -867,6 +931,23 @@
   justify-content: center;
   background: linear-gradient(145deg, #353b52 0%, #252a3d 45%, #161a28 100%);
   border-bottom: 1px solid rgba(25, 37, 66, 0.9);
+  overflow: hidden;
+}
+
+.mak-deck-placeholder--blue {
+  background: linear-gradient(145deg, #1d4ed8 0%, #1e3a8a 45%, #0b1f57 100%);
+}
+
+.mak-deck-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.mak-deck-image--blue-bg {
+  background: #1e40af;
 }
 
 .mak-deck-placeholder::before {
@@ -1201,11 +1282,50 @@
 
   .mak-hero-card {
     overflow: visible;
+    padding: 18px;
+  }
+
+  .mak-hero-visual {
+    max-width: 220px;
+  }
+
+  .mak-hero-card-layer--back1 {
+    transform: translate(-30px, 19px) rotate(-17deg) scale(0.95);
+    animation-name: mak-hero-tilt-back1-sm;
+  }
+
+  .mak-hero-card-layer--back2 {
+    transform: translate(30px, 19px) rotate(17deg) scale(0.95);
+    animation-name: mak-hero-tilt-back2-sm;
   }
 
   .mak-hero-card-layer--front {
-    transform: translate(74px, 6px) rotate(8deg) scale(1.02);
+    transform: translate(0, 0) rotate(0deg) scale(1);
     animation: mak-hero-float-front-sm 9s ease-in-out infinite;
+  }
+}
+
+@media (max-width: 560px) {
+  .mak-hero-card {
+    padding: 14px;
+  }
+
+  .mak-hero-visual {
+    max-width: 190px;
+  }
+
+  .mak-hero-card-layer--back1 {
+    transform: translate(-22px, 16px) rotate(-15deg) scale(0.94);
+    animation-name: mak-hero-tilt-back1-xs;
+  }
+
+  .mak-hero-card-layer--back2 {
+    transform: translate(22px, 16px) rotate(15deg) scale(0.94);
+    animation-name: mak-hero-tilt-back2-xs;
+  }
+
+  .mak-hero-card-layer--front {
+    transform: translate(0, 0) rotate(0deg) scale(1);
   }
 }
 

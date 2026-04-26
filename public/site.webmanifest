@@ -1,0 +1,30 @@
+{
+  "name": "Garmonia-MAK",
+  "short_name": "Garmonia-MAK",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f9ff",
+  "theme_color": "#0284c7",
+  "icons": [
+    {
+      "src": "/garmonia-logo-photoroom.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/garmonia-logo-photoroom.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/garmonia-logo-photoroom.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/garmonia-logo-photoroom.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}
